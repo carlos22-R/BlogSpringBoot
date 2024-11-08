@@ -86,4 +86,11 @@ public class AdminController {
         readerService.updateReaderUser(id,userDTO);
         return "redirect:/blog/readersAdmin";
     }
+    @GetMapping("/viewReader/{id}")
+    public String viewReader(@PathVariable("id") int id,Model model, HttpSession session) {
+        model.addAttribute("user",session.getAttribute("user"));
+        model.addAttribute("reader",readerService.getReaderById(id));
+        model.addAttribute("usuario",readerService.getUserById(id));
+        return "/admin/viewUserAdmin";
+    }
 }
