@@ -4,6 +4,7 @@ import com.blog.BlogSpringBoot.dto.ReaderDTO;
 import com.blog.BlogSpringBoot.dto.UserDTO;
 import com.blog.BlogSpringBoot.entity.Reader;
 import com.blog.BlogSpringBoot.entity.User;
+import com.blog.BlogSpringBoot.repository.BlogReaderRepository;
 import com.blog.BlogSpringBoot.repository.ReadersRepository;
 import com.blog.BlogSpringBoot.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ import java.util.UUID;
 public class ReaderService{
     public final ReadersRepository readerRepository;
     public final UsuarioRepository usuarioRepository;
-
+    private final BlogReaderRepository blogReaderRepository;
     @Autowired
-    public ReaderService( ReadersRepository readerRepository, UsuarioRepository usuarioRepository) {
-
+    public ReaderService( ReadersRepository readerRepository, UsuarioRepository usuarioRepository,BlogReaderRepository blogReaderRepository) {
+        this.blogReaderRepository = blogReaderRepository;
         this.readerRepository = readerRepository;
         this.usuarioRepository = usuarioRepository;
     }
@@ -42,7 +43,7 @@ public class ReaderService{
     }
     @Transactional
     public void deleteReaderById(int id) {
-
+        blogReaderRepository.deleteById_rId(id);
         usuarioRepository.deleteById(id);
         readerRepository.deleteById(id);
     }
