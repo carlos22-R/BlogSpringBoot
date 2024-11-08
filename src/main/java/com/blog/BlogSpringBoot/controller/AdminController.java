@@ -1,6 +1,7 @@
 package com.blog.BlogSpringBoot.controller;
 
 import com.blog.BlogSpringBoot.dto.BlogReaderDTO;
+import com.blog.BlogSpringBoot.dto.UserDTO;
 import com.blog.BlogSpringBoot.service.BlogService;
 import com.blog.BlogSpringBoot.service.ReaderService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -70,6 +71,19 @@ public class AdminController {
     @GetMapping("/deleteReader/{id}")
     public String deleteReader(@PathVariable("id") int id) {
         readerService.deleteReaderById(id);
+        return "redirect:/blog/readersAdmin";
+    }
+    @GetMapping("blog/updateReader/{id}")
+    public String updateReader(@PathVariable("id") int id,Model model, HttpSession session) {
+        model.addAttribute("user",session.getAttribute("user"));
+        model.addAttribute("reader",readerService.getReaderById(id));
+        model.addAttribute("usuario",readerService.getUserById(id));
+        return "/admin/userUpdateAdmin";
+    }
+    @PostMapping("blog/ReaderUpdate/{id}")
+    public String updateReader(@PathVariable("id") int id,@ModelAttribute UserDTO userDTO) {
+        System.out.println(userDTO);
+        readerService.updateReaderUser(id,userDTO);
         return "redirect:/blog/readersAdmin";
     }
 }

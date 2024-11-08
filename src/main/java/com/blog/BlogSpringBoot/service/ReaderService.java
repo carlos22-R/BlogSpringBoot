@@ -33,6 +33,9 @@ public class ReaderService{
     public Optional<Reader> getReaderById(int id) {
         return readerRepository.findById(id);
     }
+    public Optional<User> getUserById(int id) {
+        return usuarioRepository.findById(id);
+    }
     public Reader saveReader(ReaderDTO readerDTO) {
         UUID uuid = UUID.randomUUID();
         Reader reader = new Reader();
@@ -83,5 +86,16 @@ public class ReaderService{
     }
     public Optional<User> getUserByUsername(String username) {
         return usuarioRepository.findByUsername(username);
+    }
+    public void updateReaderUser(int id,UserDTO userDTO) {
+        User user = usuarioRepository.findById(id).orElseThrow(()->new InvalidParameterException("Invalid id"));
+        Reader reader = readerRepository.findById(id).orElseThrow(()->new InvalidParameterException("Invalid id"));
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+        reader.setName(userDTO.getName());
+        reader.setEmail(userDTO.getEmail());
+        usuarioRepository.save(user);
+        readerRepository.save(reader);
+
     }
 }
