@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}">
+    <title>Title</title>
+</head>
+<div th:include="~{blogs/layout :: header}"></div>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2" th:include="~{blogs/nav :: nav}"></div>
+        <div class="col-md-8">
+            <div class="container" th:each="blog : ${Blogs}">
+                <div class="card">
+                    <h5 class="card-header">Featured</h5>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${blog.title}">Special title treatment</h5>
+                        <p class="card-text" th:text="${blog.description}">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="" >
+                        <div class="list-group" th:each="user : ${blog.getReaders()}">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <h5 class="mb-1" th:text="${user.name}">User Name</h5>
+                                <p class="mb-1" th:text="${user.email}">user@example.com</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

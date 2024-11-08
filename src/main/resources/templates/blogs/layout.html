@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <div th:fragment="header">
+        <nav class="navbar bg-body-tertiary bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <p th:text="${user.username}"></p>
+            </div>
+        </nav>
+    </div>
+
+
+<script th:src="@{bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
