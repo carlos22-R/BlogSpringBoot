@@ -3,6 +3,7 @@ package com.blog.BlogSpringBoot.controller;
 import com.blog.BlogSpringBoot.dto.BlogReaderDTO;
 import com.blog.BlogSpringBoot.service.BlogService;
 import com.blog.BlogSpringBoot.service.ReaderService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,10 @@ public class AdminController {
         this.readerService = readerService;
     }
     @GetMapping("/blog")
-    public String homePageAdmin(Model model, HttpSession session) {
+    public String homePageAdmin(Model model, HttpSession session, HttpServletRequest request) {
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("Blogs",blogService.GetBlog());
+        model.addAttribute("request", request);
         return "/admin/homeAdmin";
     }
     @GetMapping("/deleteBlog/{id}")
@@ -41,5 +43,18 @@ public class AdminController {
     public String updateBlogs(@PathVariable("id") int id,@ModelAttribute BlogReaderDTO blogDTO) {
         blogService.updateBlog(id,blogDTO);
         return "redirect:/blog";
+    }
+    @GetMapping("/viewBlog/{id}")
+    public String viewBlog(@PathVariable("id") int id,Model model, HttpSession session) {
+        model.addAttribute("user",session.getAttribute("user"));
+        model.addAttribute("blog",blogService.BlogFindById(id));
+        return "/admin/viewAdmin";
+    }
+    @GetMapping("blog/readersAdmin")
+    public String readersAdmin(Model model, HttpSession session, HttpServletRequest request) {
+        model.addAttribute("user",session.getAttribute("user"));
+        model.addAttribute("readers",readerService.getAllReaders());
+        model.addAttribute("request", request);
+        return "/admin/UserAdmin";
     }
 }
