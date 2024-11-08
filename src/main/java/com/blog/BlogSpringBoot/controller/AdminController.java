@@ -57,4 +57,19 @@ public class AdminController {
         model.addAttribute("request", request);
         return "/admin/UserAdmin";
     }
+    @GetMapping("blog/createBlogAdmin")
+    public String createBlog(Model model, HttpSession session) {
+        model.addAttribute("user",session.getAttribute("user"));
+        return "/admin/createBlog";
+    }
+    @PostMapping("/blog/saveBlog")
+    public String saveBlog(@ModelAttribute BlogReaderDTO blogDTO) {
+        blogService.saveBlog(blogDTO);
+        return "redirect:/blog";
+    }
+    @GetMapping("/deleteReader/{id}")
+    public String deleteReader(@PathVariable("id") int id) {
+        readerService.deleteReaderById(id);
+        return "redirect:/blog/readersAdmin";
+    }
 }

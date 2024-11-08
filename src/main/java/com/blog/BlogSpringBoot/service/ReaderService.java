@@ -8,6 +8,7 @@ import com.blog.BlogSpringBoot.repository.ReadersRepository;
 import com.blog.BlogSpringBoot.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -18,8 +19,10 @@ import java.util.UUID;
 public class ReaderService{
     public final ReadersRepository readerRepository;
     public final UsuarioRepository usuarioRepository;
+
     @Autowired
     public ReaderService( ReadersRepository readerRepository, UsuarioRepository usuarioRepository) {
+
         this.readerRepository = readerRepository;
         this.usuarioRepository = usuarioRepository;
     }
@@ -37,7 +40,10 @@ public class ReaderService{
         reader.setId((int)uuid.getMostSignificantBits()&Integer.MAX_VALUE);
         return readerRepository.save(reader);
     }
+    @Transactional
     public void deleteReaderById(int id) {
+
+        usuarioRepository.deleteById(id);
         readerRepository.deleteById(id);
     }
     public Reader updateReader(int id,ReaderDTO readerDTO) {
