@@ -19,9 +19,10 @@
         <div class="col-md-8">
             <div class="container my-4" th:each="blog : ${Blogs}">
                 <div class="card">
-                    <h5 class="card-header">Featured</h5>
+                    <h5 class="card-header" th:text="${blog.title}">Featured</h5>
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${blog.title}">Special title treatment</h5>
+                        <p class="card-title mb-2 text-body-secondary"> Id blog <span th:text="${blog.id}" class="fst-italic">a</span></p>
+
                         <p class="card-text" th:text="${blog.description}">With supporting text below as a natural lead-in to additional content.</p>
             <div th:if="${#lists.contains(blog.readers,reader)}">
                 <form   th:action="@{/popBlogReader}" method="post">
