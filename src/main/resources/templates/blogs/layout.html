@@ -8,9 +8,10 @@
 
 <body>
     <div th:fragment="header">
-        <nav class="navbar bg-body-tertiary bg-primary">
+
+        <nav class="navbar text-white bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">XYZ</a>
+                <a class="navbar-brand" th:href="@{/home}"><span class="text-white">XYZ</span></a>
                 <div class="d-flex">
                     <a th:href="@{/logout}" class="mx-1">Logout</a>
                     <p th:text="${user.username}"></p>

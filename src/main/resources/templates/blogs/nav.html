@@ -5,33 +5,10 @@
     <title>nav</title>
     <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}">
 </head>
-<style>
-    .hover-effect:hover {
-        color: #f8f9fa; /* Cambia el color aquí para el efecto hover */
-        text-decoration: underline; /* Opcional, agrega subrayado en hover */
-    }
-</style>
+
 <body>
     <div th:fragment="nav">
 
-            <!-- Menú lateral -->
-<!--            <div class="col border-righ t position-fixed">-->
-
-<!--                <ul class="nav flex-column  bg-primary">-->
-<!--                    <li class="nav-item ">-->
-<!--                        <a class="nav-link text-white" th:href="@{/readers}">Readers</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link text-white" th:href="@{/home}">Blogs</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link text-white" th:href="@{/readersBlog}">Readers por blog</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--                <div class="nav-item" th:if="${user.username == 'root'}">-->
-<!--                    <a class="btn btn-info" th:href="@{/blog}">Mantenimiento</a>-->
-<!--                </div>-->
-<!--                </div>-->
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark position-fixed" style="width: 280px; height: 100vh">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
