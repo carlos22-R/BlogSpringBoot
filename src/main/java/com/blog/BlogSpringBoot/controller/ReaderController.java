@@ -1,13 +1,17 @@
 package com.blog.BlogSpringBoot.controller;
 
 import com.blog.BlogSpringBoot.dto.ReaderDTO;
+import com.blog.BlogSpringBoot.dto.UserDTO;
 import com.blog.BlogSpringBoot.entity.Reader;
 import com.blog.BlogSpringBoot.service.BlogReaderService;
 import com.blog.BlogSpringBoot.service.ReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequestMapping("/reader")
 @RestController
@@ -23,8 +27,14 @@ public class ReaderController {
     }
 
     @GetMapping("/Get/{nameId}")
-    public ResponseEntity<?> getReaderById(@PathVariable String nameId) {
-        return new ResponseEntity<>(readerService.getReaderByName(nameId), HttpStatus.OK);
+    public ResponseEntity<?> getReaderById(@PathVariable int nameId) {
+
+        Optional<Reader> reader = readerService.getReaderById(nameId);
+        if (reader.isPresent()) {
+            return new ResponseEntity<>(reader, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/Get/name/{name}")
@@ -33,13 +43,21 @@ public class ReaderController {
     }
 
     @PostMapping("/Post")
-    public ResponseEntity<?> postReader(@RequestBody ReaderDTO readerDTO) {
-        return new ResponseEntity<>(readerService.saveReader(readerDTO), HttpStatus.OK);
+    public ResponseEntity<?> postReader(@RequestBody UserDTO userDTO , BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors().toString(), HttpStatus.BAD_REQUEST);
+        }
+        readerService.saveUser(userDTO);
+        return new ResponseEntity<>("Se creo exitosamente", HttpStatus.CREATED);
     }
 
     @PutMapping("/Update/{readerId}")
-    public ResponseEntity<?> updateReader(@RequestBody ReaderDTO readerDTO,@PathVariable int readerId) {
-        return new ResponseEntity<>(readerService.updateReader(readerId,readerDTO),HttpStatus.OK);
+    public ResponseEntity<?> updateReader(@RequestBody UserDTO userDTO,@PathVariable int readerId , BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors().toString(), HttpStatus.BAD_REQUEST);
+        }
+        readerService.updateReaderUser(readerId,userDTO);
+        return new ResponseEntity<>("Actualizacion del reader", HttpStatus.OK);
     }
     @PostMapping("/Delete/{readerId}")
     public ResponseEntity<?> deleteReader(@PathVariable int readerId) {
