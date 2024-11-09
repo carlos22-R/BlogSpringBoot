@@ -93,4 +93,14 @@ public class AdminController {
         model.addAttribute("usuario",readerService.getUserById(id));
         return "/admin/viewUserAdmin";
     }
+    @GetMapping("blog/createReaderAdmin")
+    public String createReader(Model model, HttpSession session) {
+        model.addAttribute("user",session.getAttribute("user"));
+        return "/admin/createUser";
+    }
+    @PostMapping("/blog/saveReader")
+    public String register(@ModelAttribute UserDTO userDTO) {
+        readerService.saveUser(userDTO);
+        return "redirect:/blog/readersAdmin";
+    }
 }

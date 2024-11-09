@@ -32,12 +32,23 @@ public class BlogReaderController {
     }
     @PutMapping("/addReader/{readerId}/{blogId}")
     public ResponseEntity<?> addBlogReader(@PathVariable int readerId, @PathVariable int blogId) {
-        blogReaderService.setBlogReader(readerId,blogId);
-        return new ResponseEntity<>("Guardado con exito",HttpStatus.OK);
+        try {
+
+            blogReaderService.setBlogReader(readerId,blogId);
+            return new ResponseEntity<>("Guardado con exito",HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Fallo al agregar referencia", HttpStatus.BAD_REQUEST);
+        }
     }
+
     @GetMapping("/removeReader/{readerId}/{blogId}")
     public ResponseEntity<?> removeBlogReader(@PathVariable int readerId, @PathVariable int blogId) {
-        blogReaderService.popBlogReader(readerId,blogId);
-        return new ResponseEntity<>("eliminado con exito",HttpStatus.OK);
+        try {
+
+            blogReaderService.popBlogReader(readerId,blogId);
+            return new ResponseEntity<>("eliminado con exito",HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("Fallo al borar la referencia",HttpStatus.BAD_REQUEST);
+        }
     }
 }
