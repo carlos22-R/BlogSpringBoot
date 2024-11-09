@@ -7,6 +7,7 @@ import com.blog.BlogSpringBoot.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -36,11 +37,20 @@ public class BlogController {
         return new ResponseEntity<>(blogid,HttpStatus.OK);
     }
     @PostMapping("/Post")
-    public ResponseEntity<?> PostBlog(@RequestBody BlogReaderDTO blog) {
-        return new ResponseEntity<>(blogService.saveBlog(blog), HttpStatus.OK);
+    public ResponseEntity<?> PostBlog(@RequestBody BlogReaderDTO blog, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(blogService.saveBlog(blog), HttpStatus.CREATED);
     }
     @PutMapping("/Update/{blogId}")
-    public ResponseEntity<?> UpdateBlog(@RequestBody BlogReaderDTO blog,@PathVariable("blogId") int id) {
+    public ResponseEntity<?> UpdateBlog(@RequestBody BlogReaderDTO blog,@PathVariable("blogId") int id , BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(blogService.updateBlog(id, blog), HttpStatus.OK);
+
     }
 }
