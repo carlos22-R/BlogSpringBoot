@@ -60,7 +60,7 @@ public class ReaderService{
     public Optional<Reader> getReaderByName(String name) {
         return readerRepository.findByName(name);
     }
-
+    @Transactional
     public void saveUser(UserDTO userDTO) {
         User usuario= new User();
         UUID uuid = UUID.randomUUID();

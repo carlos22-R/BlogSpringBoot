@@ -5,6 +5,12 @@
     <title>nav</title>
     <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}">
 </head>
+<style>
+    .hover-effect:hover {
+        color: #f8f9fa; /* Cambia el color aquí para el efecto hover */
+        text-decoration: underline; /* Opcional, agrega subrayado en hover */
+    }
+</style>
 <body>
     <div th:fragment="nav">
 
@@ -32,9 +38,9 @@
                 <span class="fs-4">Home</span>
             </a>
             <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column mb-auto ">
                 <li class="nav-item">
-                    <a th:href="@{/readers}" class="nav-link" aria-current="page">
+                    <a th:href="@{/readers}" class="nav-link text-white " aria-current="page">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                         Reader
                     </a>

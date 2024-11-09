@@ -17,7 +17,7 @@
                     <form th:action="@{/blog/saveBlog}" method="post">
                         <div class="mb-3">
                             <label for="title" class="form-label">Titulo</label>
-                            <input type="text" class="form-control" id="title" name="title" required autocomplete="off">
+                            <input type="text" class="form-control" id="title" name="title" required autocomplete="off" maxlength="40">
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Descripcion</label>
