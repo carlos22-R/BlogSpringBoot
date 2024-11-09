@@ -1,5 +1,8 @@
 package com.blog.BlogSpringBoot.controller;
 
+import com.blog.BlogSpringBoot.dto.ReaderDTO;
+import com.blog.BlogSpringBoot.dto.UserDTO;
+import com.blog.BlogSpringBoot.entity.Reader;
 import com.blog.BlogSpringBoot.service.BlogReaderService;
 import com.blog.BlogSpringBoot.service.ReaderService;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class BlogViewController {
@@ -28,6 +33,9 @@ public class BlogViewController {
     public String homePage(Model model ,HttpSession session) {
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("Blogs",blogService.GetBlog());
+        UserDTO userDTO = (UserDTO) session.getAttribute("user");
+        Optional<Reader> reader = readerService.getReaderById(Integer.parseInt(userDTO.getId()));
+        model.addAttribute("reader",reader.get());
 
         return "/blogs/home";
     }

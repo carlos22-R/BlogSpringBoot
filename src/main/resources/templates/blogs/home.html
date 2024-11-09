@@ -23,18 +23,21 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${blog.title}">Special title treatment</h5>
                         <p class="card-text" th:text="${blog.description}">With supporting text below as a natural lead-in to additional content.</p>
-<!--                        <a href="#" class="btn btn-primary" th:onclick="'setBlogReader(' + ${blog.id} + ', ' + ${user.id} + ')'">Suscribirse</a>-->
+            <div th:if="${#lists.contains(blog.readers,reader)}">
+                <form   th:action="@{/popBlogReader}" method="post">
+                    <input type="hidden" name="readerId" th:value="${user.id}">
+                    <input type="hidden" name="blogId" th:value="${blog.id}">
+                    <button type="submit" class="btn btn-danger" >Eliminar suscripsion</button>
+                </form>
+            </div>
+                        <div th:if="${!#lists.contains(blog.readers,reader)}">
                         <form   th:action="@{/addBlogReader}" method="post">
                             <input type="hidden" name="readerId" th:value="${user.id}">
                             <input type="hidden" name="blogId" th:value="${blog.id}">
                             <button type="submit" class="btn btn-primary" >Suscribirse</button>
                         </form>
+                        </div>
 
-                        <form   th:action="@{/popBlogReader}" method="post">
-                            <input type="hidden" name="readerId" th:value="${user.id}">
-                            <input type="hidden" name="blogId" th:value="${blog.id}">
-                            <button type="submit" class="btn btn-danger" >Eliminar suscripsion</button>
-                        </form>
                     </div>
                 </div>
             </div>
