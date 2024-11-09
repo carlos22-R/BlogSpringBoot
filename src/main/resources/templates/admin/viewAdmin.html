@@ -9,36 +9,31 @@
   <div th:include="~{blogs/layout :: header}"></div>
 </div>
 <body>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-2" th:include="~{blogs/nav :: nav}"></div>
-    <div class="col-md-8">
+    <div class="col-8 ">
+      <h2 th:text="${blog.get().title}"></h2>
+      <hr/>
+      <h4 th:text="${blog.get().description}"></h4>
+      <div style="background-color: #f3f4f6" class="p-2">
+        <p>
+          Sarah J. Maas. Conocida como la asesina más temida del reino de Adarlan, su vida está marcada por secretos y una historia trágica. Tras pasar años como prisionera en las minas de sal de Endovier, Celaena es ofrecida una oportunidad para ganar su libertad: participar en una competencia organizada por el rey para convertirse en su campeona. Aunque acepta, sus motivos son mucho más profundos y complejos, ya que Celaena esconde una identidad que ni sus aliados conocen del todo y que puede cambiar el destino de todo el continente.</P>
 
-      <div class="card">
-        <div class="card-header" th:text="${blog.get().title}">
-          Quote
-        </div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <p th:text="${blog.get().description}">A well-known quote, contained in a blockquote element.</p>
-            <footer class="blockquote-footer" >Id de post <cite title="Source Title" th:text="${blog.get().getId()}">Source Title</cite></footer>
-          </blockquote>
-        </div>
+          <p>A pesar de su apariencia fría y dura, Celaena es un personaje multifacético con una notable inteligencia, habilidades en combate y un carácter indomable. Más allá de su entrenamiento como asesina, posee un sentido del humor sarcástico y una pasión por los libros y la música, lo que muestra un lado humano y vulnerable. Su independencia y resistencia no solo la convierten en una guerrera, sino en alguien con un sentido de justicia único que la guía en sus decisiones, aunque a veces estas vayan en contra de sus propios intereses.
+        </p>
+        <p>
+          A lo largo de la saga, Celaena enfrenta múltiples pruebas que desafían sus límites y la obligan a confrontar su pasado y sus verdaderos deseos. Su historia es un viaje de autodescubrimiento y redención, en el que lucha no solo por su libertad, sino también por proteger a aquellos que ama y a quienes están bajo la opresión del reino. Cada desafío la acerca más a su verdadera identidad, revelando una fuerza interna que va mucho más allá de sus habilidades físicas, y un destino que está entrelazado con el futuro de su mundo.
+        </p>
       </div>
-      <div class="col-md-8">
-        <div class="" >
-          <div class="list-group" th:each="user : ${blog.get().getReaders()}">
-            <a href="#" class="list-group-item list-group-item-action">
-              <h5 class="mb-1" th:text="${user.name}">User Name</h5>
-              <p class="mb-1" th:text="${user.email}">user@example.com</p>
-            </a>
-          </div>
-        </div>
-        <div class="">
-          <a th:href="@{/blog}" class="btn btn-info">Volver</a>
+      <hr />
+      <div class="">
+        <a th:href="@{/blog}" class="btn btn-primary">Back</a>
 
-        </div>
       </div>
     </div>
+  </div>
+</div>
 </body>
 </html>
