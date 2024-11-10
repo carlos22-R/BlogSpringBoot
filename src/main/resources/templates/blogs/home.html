@@ -28,14 +28,14 @@
                 <form   th:action="@{/popBlogReader}" method="post">
                     <input type="hidden" name="readerId" th:value="${user.id}">
                     <input type="hidden" name="blogId" th:value="${blog.id}">
-                    <button type="submit" class="btn btn-danger" >Eliminar suscripsion</button>
+                    <button type="submit" class="btn btn-danger" >unsubscribe</button>
                 </form>
             </div>
                         <div th:if="${!#lists.contains(blog.readers,reader)}">
                         <form   th:action="@{/addBlogReader}" method="post">
                             <input type="hidden" name="readerId" th:value="${user.id}">
                             <input type="hidden" name="blogId" th:value="${blog.id}">
-                            <button type="submit" class="btn btn-primary" >Suscribirse</button>
+                            <button type="submit" class="btn btn-primary" >Subscribe</button>
                         </form>
                         </div>
 
